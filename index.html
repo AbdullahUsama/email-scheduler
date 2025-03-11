@@ -6,14 +6,15 @@
     <title>Tailwind Test</title>
     <link rel="stylesheet" href="/src/styles/tailwind.css">
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-
-<form id="myForm">
-  <input type="text" name="username" placeholder="Enter Name">
-  <input type="email" name="email" placeholder="Enter Email">
-  <button type="submit">Submit</button>
-</form>
-
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-black">
+  <form id="myForm" class="flex flex-col gap-4 bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg w-80 border border-white/20">
+    <h2 class="text-xl font-semibold text-white text-center">Event Reminder</h2>
+    <input type="text" name="username" placeholder="Enter Name" required class="bg-white/20 backdrop-blur-md p-3 rounded-lg text-white placeholder-white/60 focus:outline-none">
+    <input type="email" name="email" placeholder="Enter Email" required class="bg-white/20 backdrop-blur-md p-3 rounded-lg text-white placeholder-white/60 focus:outline-none">
+    <input type="text" name="event" placeholder="Enter Event Name" required class="bg-white/20 backdrop-blur-md p-3 rounded-lg text-white placeholder-white/60 focus:outline-none">
+    <input type="date" name="date" required class="bg-white/20 backdrop-blur-md p-3 rounded-lg text-white placeholder-white/60 focus:outline-none">
+    <button type="submit" class="bg-blue-500 px-4 py-2 rounded-lg text-white font-semibold hover:bg-blue-600 transition">Submit</button>
+  </form>
 
 <script>
   document.getElementById("myForm").addEventListener("submit", async function(event) {
@@ -31,6 +32,6 @@
       const result = await response.json();
       console.log(result);
   });
-  </script>
+</script>
 </body>
 </html>
