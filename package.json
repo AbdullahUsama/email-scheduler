@@ -3,12 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
- "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "serve": "vite preview"
-}
-,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
@@ -17,11 +16,14 @@
   },
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.20.3",
     "browserslist": "^4.24.4",
     "caniuse-lite": "^1.0.30001703",
+    "cors": "^2.8.5",
     "electron-to-chromium": "^1.5.114",
     "esbuild": "^0.25.1",
     "escalade": "^3.2.0",
+    "express": "^4.21.2",
     "fraction.js": "^4.3.7",
     "nanoid": "^3.3.9",
     "node-releases": "^2.0.19",
