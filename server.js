@@ -4,13 +4,16 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import nodemailer from 'nodemailer';
 import cron from 'node-cron';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const MONGO_URI = 'mongodb+srv://abd:123@cluster0.u5omh.mongodb.net/intern_event_reminder?retryWrites=true&w=majority';
+// const MONGO_URI = 'mongodb+srv://abd:123@cluster0.u5omh.mongodb.net/intern_event_reminder?retryWrites=true&w=majority';
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB Atlas'))
@@ -61,13 +64,15 @@ app.post('/submit', async (req, res) => {
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: { 
-        user: 'ausama.bese22seecs@seecs.edu.pk',
-        pass: 'Kushim@03000',
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
+        // user: 'ausama.bese22seecs@seecs.edu.pk',
+        // pass: 'Kushim@03000',
     }
 });
 
-    // cron.schedule('*/8 * * * * *', async () => { // every 5 seconds -- for testing emails
-    cron.schedule('30 8 * * *', async () => { // every day at 8 30 AM
+    cron.schedule('*/8 * * * * *', async () => { // every 5 seconds -- for testing emails
+    // cron.schedule('30 8 * * *', async () => { // every day at 8 30 AM
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -79,12 +84,28 @@ const transporter = nodemailer.createTransport({
     });
 
     for (const event of events) {
+        // const mailOptions = {
+        //     from: 'ausama.bese22seecs@seecs.edu.pk',
+        //     to: event.email,
+        //     subject: `Reminder: ${event.event} Today!`,
+        //     text: `Hello ${event.username},\n\nThis is a reminder for your event: ${event.event} scheduled for today.\n\nBest Regards.`
+        // };
         const mailOptions = {
             from: 'ausama.bese22seecs@seecs.edu.pk',
             to: event.email,
             subject: `Reminder: ${event.event} Today!`,
-            text: `Hello ${event.username},\n\nThis is a reminder for your event: ${event.event} scheduled for today.\n\nBest Regards.`
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+                    <h2 style="color: #333;">Hello ${event.username},</h2>
+                    <p style="font-size: 16px; color: #555;">This is a friendly reminder about your event:</p>
+                    <p style="font-size: 18px; font-weight: bold; color: #007bff;">${event.event}</p>
+                    <p style="font-size: 16px; color: #555;">Scheduled for today.</p>
+                    <hr style="border: 1px solid #ddd;">
+                    <p style="font-size: 14px; color: #888;">Best Regards,<br>Reminder Service</p>
+                </div>
+            `
         };
+        
 
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
@@ -96,4 +117,5 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
