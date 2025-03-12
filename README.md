@@ -22,8 +22,8 @@ A simple event reminder system that allows customers to save important dates and
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/prac_email.git
-   cd prac_email
+   git clone https://github.com/AbdullahUsama/email-scheduler
+   cd email-scheduler
    ```
 2. Install dependencies::
    ```sh
