@@ -8,7 +8,7 @@ A simple event reminder system that allows customers to save important dates and
 - Send email reminders using Nodemailer
 - Schedule reminders with `node-cron`
 - Built with Express.js and TailwindCSS
-- Uses Vite for frontend development
+- Uses HTML and Tailwind for frontend development
 
 ## Tech Stack
 
