@@ -26,15 +26,44 @@ const formSchema = new mongoose.Schema({
 const FormData = mongoose.model('FormData', formSchema);
 
 // Handle Form Submission
+// app.post('/submit', async (req, res) => {
+//     try {
+//         const newFormEntry = new FormData(req.body);
+//         await newFormEntry.save();
+//         res.json({ message: 'Data saved successfullyyy!', data: newFormEntry });
+//     } catch (err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
+
 app.post('/submit', async (req, res) => {
     try {
-        const newFormEntry = new FormData(req.body);
+        const { name, email, day, month, customEvent } = req.body;
+        let { eventType } = req.body;
+
+        // Use custom event type if provided
+        if (customEvent && customEvent.trim() !== '') {
+            eventType = customEvent.trim();
+        }
+
+        // Construct a date object for the event (year is set to current year)
+        const eventDate = new Date(new Date().getFullYear(), parseInt(month) - 1, parseInt(day)+1);
+        eventDate.setUTCHours(0, 0, 0, 0); 
+        const newFormEntry = new FormData({
+            username: name,
+            email,
+            event: eventType,
+            date: eventDate
+        });
+
         await newFormEntry.save();
-        res.json({ message: 'Data saved successfullyyy!', data: newFormEntry });
+        res.json({ message: 'Data saved successfully!', data: newFormEntry });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
+
+
 
 // Email Transporter
 const transporter = nodemailer.createTransport({
@@ -46,8 +75,8 @@ const transporter = nodemailer.createTransport({
 });
 
 // Schedule Emails
-    cron.schedule('*/8 * * * * *', async () => { // Runs every 5 seconds
-    // cron.schedule('30 8 * * *', async () => { // Runs every day at 8:30 AM
+    // cron.schedule('*/8 * * * * *', async () => { // Runs every 5 seconds
+    cron.schedule('30 8 * * *', async () => { // Runs every day at 8:30 AM
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
