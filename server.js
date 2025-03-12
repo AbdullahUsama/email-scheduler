@@ -16,7 +16,6 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-// Define Mongoose Schema & Model
 const formSchema = new mongoose.Schema({
     username: String,
     email: String,
@@ -40,13 +39,9 @@ app.post('/submit', async (req, res) => {
     try {
         const { name, email, day, month, customEvent } = req.body;
         let { eventType } = req.body;
-
-        // Use custom event type if provided
         if (customEvent && customEvent.trim() !== '') {
             eventType = customEvent.trim();
         }
-
-        // Construct a date object for the event (year is set to current year)
         const eventDate = new Date(new Date().getFullYear(), parseInt(month) - 1, parseInt(day)+1);
         eventDate.setUTCHours(0, 0, 0, 0); 
         const newFormEntry = new FormData({
@@ -63,9 +58,6 @@ app.post('/submit', async (req, res) => {
     }
 });
 
-
-
-// Email Transporter
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: { 
@@ -74,9 +66,8 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Schedule Emails
-    // cron.schedule('*/8 * * * * *', async () => { // Runs every 5 seconds
-    cron.schedule('30 8 * * *', async () => { // Runs every day at 8:30 AM
+    // cron.schedule('*/8 * * * * *', async () => { // every 5 seconds -- for testing emails
+    cron.schedule('30 8 * * *', async () => { // every day at 8 30 AM
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -84,7 +75,7 @@ const transporter = nodemailer.createTransport({
     tomorrow.setDate(today.getDate() + 1);
 
     const events = await FormData.find({
-        date: { $gte: today, $lt: tomorrow } // Find all events for today
+        date: { $gte: today, $lt: tomorrow }
     });
 
     for (const event of events) {
