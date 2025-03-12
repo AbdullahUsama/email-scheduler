@@ -45,7 +45,7 @@ A simple event reminder system that allows customers to save important dates and
 
 | Pereview |
 |------------|
-| (https://www.youtube.com/watch?v=your-video-id) <br> Demo Video on Youtube |
+| (https://youtu.be/qt1yqJbY728)) <br> Demo Video on Youtube |
 | ![Start Page](https://github.com/user-attachments/assets/a5c0c8d9-d1dd-4458-815b-33385e0edd08) <br> Start Page|
 | ![image](https://github.com/user-attachments/assets/c75987a8-3f51-4387-b532-83c94d3bf702) <br> Form|
 | ![image](https://github.com/user-attachments/assets/39c188c4-9828-4f97-9642-c90fb8fd3faf) <br> Info Added |
