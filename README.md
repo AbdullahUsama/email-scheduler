@@ -52,7 +52,7 @@ A simple event reminder system that allows customers to save important dates and
 | ![image](https://github.com/user-attachments/assets/30723125-276f-4073-94bd-e7a84c68f194) <br> Event Added |
 | ![image](https://github.com/user-attachments/assets/fefb8fe9-4825-4742-a801-01612872c41d) <br> Success Message in Console |
 | ![image](https://github.com/user-attachments/assets/991931cc-ade2-4f8b-9543-3230519e429c) <br> Event Added in MongoDB|
-| ![image](https://github.com/user-attachments/assets/8984665a-6233-4d86-9ca3-8c4c76cdb9f3) <br> Reminder Recieved via Email (for test puposes I have added todays date with 5s frequency but it can be set to check schedule every day) |
+| ![image](https://github.com/user-attachments/assets/cbd2be4b-da8f-4726-aa87-31b4a80c8677) <br> Reminder Recieved via Email (for test puposes I have added todays date with 5s frequency but it can be set to check schedule every day) |
 
 
 
